@@ -1,0 +1,20 @@
+.header-links {
+  position: relative;
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  font-weight: 400;
+}
+
+.header-links:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background-color: #47cdde;
+  left: 0;
+  bottom: -4px;
+  transition: 0.3s;
+}
+
+.header-links:hover {
+  color: #47cdde;
+}

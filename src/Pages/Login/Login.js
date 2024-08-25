@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 import useToken from "../../hooks/useToken";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const {
@@ -16,10 +17,8 @@ const Login = () => {
   const [token] = useToken(loginUserEmail);
   const location = useLocation();
   const navigate = useNavigate();
-
-  const from = location.state?.from?.pathname || "/";
-
   if (token) {
+    const from = location.state?.from?.pathname || "/";
     navigate(from, { replace: true });
   }
 
@@ -29,10 +28,15 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         // console.log(user);
-        setLoginUserEmail(data.email);
+        //user?.emailVerified
+
+        if (user?.emailVerified) {
+          setLoginUserEmail(data.email);
+        } else {
+          toast.error(`You Are Not Varified User`);
+        }
       })
       .catch((error) => {
-        console.log(error.message);
         setLoginError(error.message);
       });
   };

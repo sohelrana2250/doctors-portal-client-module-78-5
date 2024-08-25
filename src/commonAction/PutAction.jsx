@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
 
-const PutAction = (url, selectedSpecialties) => {
+const PutAction = (url, selectedSpecialties, refetch) => {
   fetch(url, {
     method: "PUT",
     headers: {
@@ -17,6 +17,7 @@ const PutAction = (url, selectedSpecialties) => {
     })
     .then((data) => {
       toast.success(data?.message);
+      refetch();
     })
     .catch((error) => {
       toast.error(error?.message);

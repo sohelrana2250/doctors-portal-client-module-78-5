@@ -5,8 +5,10 @@ import toast from "react-hot-toast";
 import Loading from "../../Shared/Loading/Loading";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { FiTrash } from "react-icons/fi";
+import AllDistrict from "../../../utility/District";
 const AddDoctor = () => {
-  const { createUser, updateUser, logOut } = useContext(AuthContext);
+  const { createUser, updateUser, EmailVarification, logOut } =
+    useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -26,7 +28,9 @@ const AddDoctor = () => {
   const { data: specialties, isLoading } = useQuery({
     queryKey: ["specialty"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/appointmentSpecialty");
+      const res = await fetch(
+        `${process.env.REACT_APP_SERVER_API}/appointmentSpecialty`
+      );
       const data = await res.json();
       return data;
     },
@@ -47,7 +51,6 @@ const AddDoctor = () => {
           data.image = imgData.data.url;
           data.experience = Number(data.experience);
           data.appointmentfee = Number(data.appointmentfee);
-
           setSignUPError("");
           createUser(data.email, data.password)
             .then((result) => {
@@ -59,7 +62,8 @@ const AddDoctor = () => {
               updateUser(userInfo)
                 .then(() => {
                   if (!!user) {
-                    saveUser(data);
+                    EmailVarification();
+                    saveUser({ ...data, specialist: [] });
                   }
                 })
                 .catch((err) => toast.error(err?.message));
@@ -73,7 +77,7 @@ const AddDoctor = () => {
   };
 
   const saveUser = (doctor) => {
-    fetch("http://localhost:5000/doctors", {
+    fetch(`${process.env.REACT_APP_SERVER_API}/doctors`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -104,13 +108,12 @@ const AddDoctor = () => {
   // https://verify.bmdc.org.bd/
   return (
     <>
-      <h1 className="text-3xl text-center font-serif">Add To Doctor</h1>
-      <div className="w-full flex justify-center items-center rounded-md  px-4 py-2 md:w-full  lg:w-full bg-[url(https://st.depositphotos.com/1907633/5136/i/950/depositphotos_51366443-stock-photo-doctor-hand-with-medical-background.jpg)]">
+      <h1 className="text-3xl text-center font-serif m-3">Add To Doctor</h1>
+      <div className="w-full flex justify-center items-center rounded-md  px-4 py-2 md:w-full  lg:w-full bg-[url()]">
         <form onSubmit={handleSubmit(handleAddDoctor)}>
           <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-4">
             <div className="form-control w-full max-w-full">
               <label className="label">
-                {" "}
                 <span className="label-text">Name</span>
               </label>
               <input
@@ -353,7 +356,6 @@ const AddDoctor = () => {
           <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-4">
             <div className="form-control w-full max-w-xs">
               <label className="label">
-                {" "}
                 <span className="label-text">Designation</span>
               </label>
               <input
@@ -367,6 +369,41 @@ const AddDoctor = () => {
               {errors.designation && (
                 <p className="text-red-600">{errors?.designation?.message}</p>
               )}
+            </div>
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Chamber Address</span>
+              </label>
+              <input
+                type="text"
+                {...register("chamber", {
+                  required: "Chamber is required",
+                })}
+                maxLength={50}
+                className="input input-bordered w-full max-w-xs"
+                required
+              />
+              {errors.designation && (
+                <p className="text-red-600">{errors?.chamber?.message}</p>
+              )}
+            </div>
+          </div>
+          <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-4">
+            <div className="form-control w-full max-w-full">
+              <label className="label">
+                <span className="label-text">District Name </span>
+              </label>
+              <select
+                {...register("district")}
+                className="select input-bordered w-full max-w-full"
+                required
+              >
+                {AllDistrict.map((district) => (
+                  <option key={district.id} value={district.district_name}>
+                    {district.district_name} | {district.bn_name}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
           <div>

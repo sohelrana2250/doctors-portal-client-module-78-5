@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import PutAction from "../../../commonAction/PutAction";
 const DoctorSpecilities = ({ doctorId }) => {
   const [selectedSpecialties, setSelectedSpecialties] = useState([]);
+
   const {
     user: { displayName, email },
   } = useContext(AuthContext);

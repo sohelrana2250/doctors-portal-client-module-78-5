@@ -1,7 +1,7 @@
 import React from "react";
 
 const AppointmentOption = ({ appointmentOption, setTreatment }) => {
-  const { name, price, slots } = appointmentOption;
+  const { name, price, slots } = appointmentOption || {};
   return (
     <div className="card shadow-xl">
       <div className="card-body text-center">
@@ -15,14 +15,27 @@ const AppointmentOption = ({ appointmentOption, setTreatment }) => {
         <p>
           <small>Price: ${price}</small>
         </p>
-        <div className="card-actions justify-center">
+        <div className="card-actions justify-between">
           <label
             disabled={slots.length === 0}
             htmlFor="booking-modal"
-            className="btn btn-primary text-white"
-            onClick={() => setTreatment(appointmentOption)}
+            className="btn btn-primary btn-sm text-white"
+            onClick={() =>
+              setTreatment({ appointmentOption, condition: "online" })
+            }
           >
-            Book Appointment
+            Online Booking
+          </label>
+
+          <label
+            disabled={slots.length === 0}
+            htmlFor="booking-modal"
+            className="btn btn-primary btn-sm text-white"
+            onClick={() =>
+              setTreatment({ appointmentOption, condition: "onsite" })
+            }
+          >
+            OnSite Booking
           </label>
         </div>
       </div>

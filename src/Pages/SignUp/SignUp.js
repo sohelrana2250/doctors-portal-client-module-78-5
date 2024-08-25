@@ -16,26 +16,27 @@ const SignUp = () => {
   const [createdUserEmail, setCreatedUserEmail] = useState("");
   const [token] = useToken(createdUserEmail);
   const navigate = useNavigate();
-
   if (token) {
-    navigate("/");
+    navigate("/patientInfo");
   }
-
   const handleSignUp = (data) => {
     setSignUPError("");
     createUser(data.email, data.password)
       .then((result) => {
         const user = result.user;
-        toast("User Created Successfully.");
-        const userInfo = {
-          displayName: data.name,
-          photoURL: "user",
-        };
-        updateUser(userInfo)
-          .then(() => {
-            saveUser(data.name, data.email);
-          })
-          .catch((err) => toast.err(err?.message));
+        if (!!user) {
+          toast.success("User Created Successfully.");
+          const userInfo = {
+            displayName: data.name,
+            photoURL: "user",
+          };
+
+          updateUser(userInfo)
+            .then(() => {
+              saveUser(data.name, data.email);
+            })
+            .catch((err) => toast.err(err?.message));
+        }
       })
       .catch((error) => {
         toast.error(error?.message);
@@ -44,8 +45,8 @@ const SignUp = () => {
   };
 
   const saveUser = (name, email) => {
-    const user = { name, email };
-    fetch("http://localhost:5000/users", {
+    const user = { name, email, role: "user" };
+    fetch(`${process.env.REACT_APP_SERVER_API}/users`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -53,8 +54,11 @@ const SignUp = () => {
       body: JSON.stringify(user),
     })
       .then((res) => res.json())
-      .then((data) => {
+      .then(() => {
         setCreatedUserEmail(email);
+      })
+      .catch((error) => {
+        toast.error(error?.message);
       });
   };
 

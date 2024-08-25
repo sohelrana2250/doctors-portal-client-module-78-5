@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import toast from "react-hot-toast";
+import AllDistrict from "../../../utility/District";
 
 const UpdateDoctorModal = ({ doctorId }) => {
   const {
@@ -9,7 +10,7 @@ const UpdateDoctorModal = ({ doctorId }) => {
   const [specificDoctor, setSpecificDoctor] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:5000/specific/doctors/${doctorId}`, {
+    fetch(`https://care-pulse-server.vercel.app/specific/doctors/${doctorId}`, {
       method: "GET",
       headers: {
         authorization: `bearer ${localStorage.getItem("accessToken")}`,
@@ -41,6 +42,8 @@ const UpdateDoctorModal = ({ doctorId }) => {
     const appointmentfee = Number(element.appointmentfee.value);
     const currentWorkingPlace = element.currentWorkingPlace.value;
     const designation = element.designation.value;
+    const district = element.district.value;
+    const chamber = element.chamber.value;
 
     const updateData = {
       name,
@@ -52,9 +55,11 @@ const UpdateDoctorModal = ({ doctorId }) => {
       appointmentfee,
       currentWorkingPlace,
       designation,
+      district,
+      chamber,
     };
 
-    fetch(`http://localhost:5000/update/doctor/${doctorId}`, {
+    fetch(`https://care-pulse-server.vercel.app/update/doctor/${doctorId}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -214,6 +219,41 @@ const UpdateDoctorModal = ({ doctorId }) => {
                   type="text"
                   name="designation"
                   defaultValue={specificDoctor?.designation}
+                  className="input input-bordered w-full max-w-xs"
+                  required
+                />
+              </div>
+            </div>
+            <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-4">
+              <div className="form-control w-full max-w-full">
+                <label className="label">
+                  <span className="label-text">District Name </span>
+                </label>
+                <select
+                  className="select input-bordered w-full max-w-full"
+                  name="district"
+                  required
+                  defaultValue={specificDoctor?.district}
+                >
+                  <option disabled>
+                    Selected : {specificDoctor?.district}
+                  </option>
+                  {AllDistrict.map((district) => (
+                    <option key={district.id} value={district.district_name}>
+                      {district.district_name} | {district.bn_name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="form-control w-full max-w-xs">
+                <label className="label">
+                  <span className="label-text">Chamber Address</span>
+                </label>
+                <input
+                  type="text"
+                  name="chamber"
+                  defaultValue={specificDoctor?.chamber}
+                  maxLength={50}
                   className="input input-bordered w-full max-w-xs"
                   required
                 />

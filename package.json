@@ -9,9 +9,13 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "agora-react-uikit": "^1.2.0",
     "daisyui": "^2.39.0",
     "date-fns": "^2.30.0",
+    "device-detector-js": "^3.0.3",
     "firebase": "^9.23.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
     "react": "^18.2.0",
     "react-day-picker": "^8.3.6",
     "react-dom": "^18.2.0",
@@ -20,7 +24,8 @@
     "react-icons": "^5.2.1",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
-    "sweetalert2": "^11.11.0",
+    "recharts": "^2.12.7",
+    "sweetalert2": "^11.12.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

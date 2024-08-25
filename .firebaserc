@@ -1,5 +1,9 @@
 {
   "projects": {
-    "default": "doctors-portal-6fe98"
-  }
+    "default": "doctorsportal-3c053",
+    "care-plues-client": "doctorsportal-3c053"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
 }
