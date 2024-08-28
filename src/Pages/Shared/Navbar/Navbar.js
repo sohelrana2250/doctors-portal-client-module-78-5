@@ -23,8 +23,7 @@ const Navbar = () => {
       </li>
       <li>
         <Link className="header-links" to="/booking_appointment">
-          {" "}
-          Appointment
+          Online Appointment
         </Link>
       </li>
       <li>

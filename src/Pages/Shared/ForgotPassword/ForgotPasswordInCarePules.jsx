@@ -1,11 +1,12 @@
 import React, { useContext, useState } from "react";
+import { AuthContext } from "../../../contexts/AuthProvider";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import { AuthContext } from "../contexts/AuthProvider";
-import DisplayError from "../Pages/Shared/DisplayError/DisplayError";
+import { useNavigate } from "react-router-dom";
+import DisplayError from "../DisplayError/DisplayError";
 
-const ForgotPassword = () => {
-  const { user, ResetPassword, logOut } = useContext(AuthContext);
+const ForgotPasswordInCarePules = () => {
+  const { ResetPassword } = useContext(AuthContext);
   const {
     handleSubmit,
     register,
@@ -13,6 +14,7 @@ const ForgotPassword = () => {
     reset,
   } = useForm();
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
     ResetPassword(data?.email)
@@ -24,13 +26,7 @@ const ForgotPassword = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        logOut()
-          .then(() => {
-            localStorage.setItem("accessToken", null);
-          })
-          .catch((error) => {
-            setError(error.message);
-          });
+        navigate("/login");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -85,9 +81,7 @@ const ForgotPassword = () => {
                         id="email"
                         type="email"
                         {...register("email")}
-                        defaultValue={user?.email}
                         placeholder="Enter Email Address..."
-                        readOnly
                       />
                       {errors?.email && (
                         <p role="alert">{errors?.email?.message}</p>
@@ -105,9 +99,7 @@ const ForgotPassword = () => {
                         className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                         id="name"
                         type="text"
-                        defaultValue={user?.displayName}
-                        placeholder=""
-                        readOnly
+                        placeholder="Enter Your User Name "
                       />
                     </div>
 
@@ -163,4 +155,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ForgotPasswordInCarePules;

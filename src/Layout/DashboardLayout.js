@@ -99,10 +99,11 @@ const DashboardLayout = () => {
           name: "Chnage Password",
           path: "/dashboard/chnage_password",
         },
+
         {
           icon: <RiLockPasswordFill className="text-2xl" />,
           name: "Reset Password",
-          path: "/dashboard/reset_password",
+          path: "/forgot_password_care_pulse",
         },
         {
           icon: <TbReportMedical className="text-2xl" />,
@@ -183,7 +184,7 @@ const DashboardLayout = () => {
         {
           icon: <RiLockPasswordFill className="text-2xl" />,
           name: "Forget Password",
-          path: "/dashboard/reset_password",
+          path: "/forgot_password_care_pulse",
         },
         {
           icon: <MdOutlineAutoDelete className="text-2xl" />,
@@ -251,7 +252,7 @@ const DashboardLayout = () => {
         {
           icon: <RiLockPasswordFill className="text-2xl" />,
           name: "Reset Password",
-          path: "/dashboard/reset_password",
+          path: "/forgot_password_care_pulse",
         },
         {
           icon: <MdOutlineAutoDelete className="text-2xl" />,

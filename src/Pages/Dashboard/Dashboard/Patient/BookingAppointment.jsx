@@ -64,9 +64,10 @@ const BookingAppointment = () => {
             className="rounded-r-sm bg-white h-14 "
             defaultValue=""
           >
-            <option value="" disabled selected>
+            <option value="" selected>
               Specialty
             </option>
+
             {!isLoading &&
               uniqueSpecialties.map((specialty, index) => (
                 <option key={index} value={specialty}>

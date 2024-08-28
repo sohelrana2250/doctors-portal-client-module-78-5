@@ -95,14 +95,65 @@ const Login = () => {
             {loginError && <p className="text-red-600">{loginError}</p>}
           </div>
         </form>
-        <p>
-          New to Doctors Portal{" "}
+        <p className="underline">
+          New to Doctors Portal
           <Link className="text-secondary" to="/signup">
             Create new Account
           </Link>
         </p>
+        <p className="underline">
+          Forgot Password System ,
+          <Link to="/forgot_password_care_pulse" className="text-secondary">
+            Forget Password
+          </Link>
+        </p>
+
+        {/* The button to open modal */}
+        <label
+          htmlFor="my_modal_6"
+          className="text-xl btn-outline font-serif btn w-full mt-2"
+        >
+          Account Credentials
+        </label>
+
         <div className="divider">OR</div>
         <button className="btn btn-outline w-full">CONTINUE WITH GOOGLE</button>
+      </div>
+
+      {/* Put this part before </body> tag */}
+      <input type="checkbox" id="my_modal_6" className="modal-toggle" />
+      <div className="modal" role="dialog">
+        <div className="modal-box">
+          <div>
+            <h1 className="text-xl font-bold">Patient Account</h1>
+            <p>
+              <span className="font-bold">Email:</span>antordaury462@gmail.com
+            </p>
+            <p>
+              <span className="font-bold">Password:</span>SP225715p**
+            </p>
+            <h1 className="text-xl font-bold">Admin Account</h1>
+            <p>
+              <span className="font-bold">Email:</span>amsr215019@gmail.com
+            </p>
+            <p>
+              <span className="font-bold">Password:</span>SP225715p**
+            </p>
+            <h1 className="text-xl font-bold">Doctor Account</h1>
+            <p>
+              <span className="font-bold">Email:</span>
+              salmansalman19347@gmail.com
+            </p>
+            <p>
+              <span className="font-bold">Password:</span>123456
+            </p>
+          </div>
+          <div className="modal-action">
+            <label htmlFor="my_modal_6" className="btn">
+              Close!
+            </label>
+          </div>
+        </div>
       </div>
     </div>
   );

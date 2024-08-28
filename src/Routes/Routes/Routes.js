@@ -37,7 +37,7 @@ import ReviewModel from "../../components/CommonModal/ReviewModel";
 import Review from "../../resuable/Review";
 import MyProfileInfo from "../../resuable/MyProfileInfo";
 import ResetPassword from "../../resuable/ResetPassword";
-import ForgotPassword from "../../resuable/ForgotPassword";
+
 import DoctorVarification from "../../Pages/Dashboard/Dashboard/Admin/DoctorVarification";
 import AllPatientHealthReport from "../../Pages/Dashboard/Dashboard/Admin/AllPatientHealthReport";
 import AllBookingVideoCall from "../../Pages/Dashboard/Dashboard/Admin/AllBookingVideoCall";
@@ -48,6 +48,7 @@ import MyOnsitePatientList from "../../Pages/Dashboard/Dashboard/Doctor/MyOnsite
 import MyOnsiteAppointment from "../../Pages/Dashboard/Dashboard/Patient/MyOnsiteAppointment";
 import About from "../../Pages/Shared/About/About";
 import AccountDelete from "../../Pages/Shared/DeleteAccount/AccountDelete";
+import ForgotPasswordInCarePules from "../../Pages/Shared/ForgotPassword/ForgotPasswordInCarePules";
 
 const router = createBrowserRouter([
   {
@@ -83,6 +84,10 @@ const router = createBrowserRouter([
       {
         path: "/patientInfo",
         element: <PatientInfo />,
+      },
+      {
+        path: "/forgot_password_care_pulse",
+        element: <ForgotPasswordInCarePules />,
       },
       {
         path: "/onsite_booking_appointment",
@@ -321,14 +326,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      {
-        path: "/dashboard/reset_password",
-        element: (
-          <PrivateRoute>
-            <ForgotPassword />
-          </PrivateRoute>
-        ),
-      },
+
       {
         path: "/dashboard/doctor_varify",
         element: (
