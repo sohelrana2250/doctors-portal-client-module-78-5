@@ -1,5 +1,4 @@
 import toast from "react-hot-toast";
-
 const PutAction = (url, selectedSpecialties, refetch) => {
   fetch(url, {
     method: "PUT",

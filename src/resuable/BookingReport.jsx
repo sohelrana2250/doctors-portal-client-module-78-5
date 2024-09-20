@@ -2,12 +2,10 @@ import React, { useContext } from "react";
 import PutAction from "../commonAction/PutAction";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthProvider";
-import { FaCcPaypal } from "react-icons/fa";
+
 const BookingReport = ({ mybooking, refetch, isLoading }) => {
   const { user } = useContext(AuthContext);
   const handelDelete = (id, condition) => {
-    console.log(id);
-
     if (condition === process.env.REACT_APP_CONDITION) {
       if (id) {
         PutAction(

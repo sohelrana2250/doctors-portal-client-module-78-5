@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import toast from "react-hot-toast";
 
 const PrescriptionList = ({ isLoading, myprescription }) => {
+  const [prescriptionrReport, setPrescriptionrReport] = useState("");
+
+  // Function to download the prescription as a PDF
   const downloadPrescription = (id) => {
     const input = document.getElementById(id);
     html2canvas(input).then((canvas) => {
@@ -13,19 +17,52 @@ const PrescriptionList = ({ isLoading, myprescription }) => {
     });
   };
 
+  // Fetch prescription analysis report
+  const handelPrescriptionAnalysis = async (id) => {
+    fetch(
+      `${process.env.REACT_APP_SERVER_API}/api/v1/doctor_prescription_analysis/${id}`,
+      {
+        method: "GET",
+        headers: {
+          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    )
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("API ERROR");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setPrescriptionrReport(data.message);
+      })
+      .catch((error) => {
+        toast.error(error?.message);
+      });
+  };
+
+  // Function to close modal
+  const closeModal = () => {
+    setPrescriptionrReport("");
+  };
+
   return (
     <>
       <div className="container mx-auto p-4 flex flex-col items-center">
         <h1 className="text-3xl font-serif mb-4 text-center bg-blue-900 text-white rounded p-2">
           My Prescriptions List
         </h1>
+
         {myprescription?.data?.length === 0 && (
           <img
             className="w-full h-full"
             src="https://static.vecteezy.com/system/resources/thumbnails/023/103/916/small_2x/not-available-rubber-stamp-seal-vector.jpg"
-            alt=""
+            alt="No Data"
           />
         )}
+
         {!isLoading &&
           myprescription?.data?.map((prescription) => (
             <div
@@ -62,6 +99,12 @@ const PrescriptionList = ({ isLoading, myprescription }) => {
               </div>
               <div className="flex justify-center m-1">
                 <button
+                  onClick={() => handelPrescriptionAnalysis(prescription._id)}
+                  className="btn btn-outline btn-accent btn-sm mr-1"
+                >
+                  Prescription Analysis
+                </button>
+                <button
                   onClick={() =>
                     downloadPrescription(`prescription-${prescription._id}`)
                   }
@@ -72,6 +115,23 @@ const PrescriptionList = ({ isLoading, myprescription }) => {
               </div>
             </div>
           ))}
+
+        {/* Modal to show prescription report */}
+        {prescriptionrReport && (
+          <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+            <div className="bg-white rounded-lg p-8 shadow-lg w-full md:w-1/3">
+              <h2 className="text-xl font-bold mb-4">
+                Prescription Analysis Report
+              </h2>
+              <p className="mb-4">{prescriptionrReport}</p>
+              <div className="flex justify-end">
+                <button onClick={closeModal} className="btn btn-sm btn-error">
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
