@@ -166,11 +166,11 @@ const DashboardLayout = () => {
           name: "Activity",
           path: "/dashboard",
         },
-        {
-          icon: <RiMentalHealthLine className="text-2xl " />,
-          name: "Health Checked",
-          path: "/dashboard/checked_mantal_health",
-        },
+        // {
+        //   icon: <RiMentalHealthLine className="text-2xl " />,
+        //   name: "Health Checked",
+        //   path: "/dashboard/checked_mantal_health",
+        // },
         {
           icon: <MdOutlinePreview className="text-2xl" />,
           name: "Review",
@@ -287,19 +287,20 @@ const DashboardLayout = () => {
               const isActive = pathname === v.path;
 
               return (
-                <li key={index}>
-                  <div>
-                    {v.icon}
-                    <Link
-                      className={`m-1 ${
-                        isActive ? "text-blue-500" : "text-gray-600"
-                      }`}
-                      to={v.path}
-                    >
+                <Link
+                  key={index}
+                  className={`m-1 ${
+                    isActive ? "text-blue-500" : "text-gray-600"
+                  }`}
+                  to={v.path}
+                >
+                  <li>
+                    <div>
+                      {v.icon}
                       {v.name}
-                    </Link>
-                  </div>
-                </li>
+                    </div>
+                  </li>
+                </Link>
               );
             })}
           </ul>

@@ -10,9 +10,9 @@ const Banner = () => {
         <div>
           <h1 className="text-5xl font-bold">Care Pulse Office News!</h1>
           <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
+            You don not have to wait in line for hours or go to the hospital to
+            take healthcare services. Easily consult a doctor in just 10 minutes
+            on your device at home or office.
           </p>
           <PrimaryButton>Getting Started</PrimaryButton>
         </div>
