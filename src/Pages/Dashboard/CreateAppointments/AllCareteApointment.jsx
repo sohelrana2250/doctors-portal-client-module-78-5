@@ -41,6 +41,8 @@ const AllCareteApointment = () => {
   if (error) {
     return <DisplayError />;
   }
+  // console.log(".....allAppointment.....");
+  // console.log(allAppointment);
 
   const handleDelete = (id) => {
     if (id) {
@@ -59,9 +61,7 @@ const AllCareteApointment = () => {
         </h1>
 
         {/* searching Appointment  ----> Avaliable Selecting Option  --->next time  */}
-        {isLoading ? (
-          <p>loading ...</p>
-        ) : (
+        {!isLoading && (
           <CardComponent data={allAppointment} onDelete={handleDelete} />
         )}
       </div>

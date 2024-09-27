@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import { PiHandPointingLight } from "react-icons/pi";
 import UpdateAppointmentModal from "./UpdateAppointmentModal";
-const CardComponent = ({ data, onDelete }) => {
+
+const CardComponent = ({ data = [], onDelete }) => {
   const [appointmentId, setAppointmentId] = useState({});
+
+  if (!Array.isArray(data) || data.length === 0) {
+    return <div>No appointments available</div>;
+  }
+
   return (
     <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-2">
       {data.map((item) => (
-        <div key={item._id} className="w-full  mb-4">
+        <div key={item._id} className="w-full mb-4">
           <div className="card bg-base-100 shadow-xl">
             <div className="card-body">
               <h2 className="card-title">{item.name}</h2>
@@ -16,7 +22,7 @@ const CardComponent = ({ data, onDelete }) => {
                   Available Slots
                 </h3>
                 <div className="grid grid-cols-2">
-                  {item.slots.map((slot, index) => (
+                  {item?.slots?.map((slot, index) => (
                     <p key={index} className="flex m-1 bg-cyan-400 rounded">
                       <PiHandPointingLight className="text-xl bg-green-500 rounded" />{" "}
                       {slot}
